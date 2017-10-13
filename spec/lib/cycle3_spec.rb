@@ -1,5 +1,5 @@
 require "spec_helper"
-require "cycle3"
+require "bowling"
 
 describe "ボウリングのスコア計算" do
   # インスタンスの生成を共通化
@@ -55,11 +55,12 @@ describe "ボウリングのスコア計算" do
         # 最終フレームで3点, 7点のスペア
         @game.add_score(3)
         @game.add_score(7)
+        @game.add_score(4) #ここはボーナスが発生しない
         # 合計を計算
         @game.calc_score
         # 期待する合計　※()内はボーナス点
-        # 3 + 7 + 4 + (4) + 3 + 7 = 28
-        expect(@game.total_score).to eq 28
+        # 3 + 7 + 4 + (4) + 3 + 7 + 4 = 32
+        expect(@game.total_score).to eq 32
       end
     end
 
@@ -149,11 +150,13 @@ describe "ボウリングのスコア計算" do
         add_many_scores(14, 0)
         # 最終フレームでストライク
         @game.add_score(10)
+        @game.add_score(4)
+        @game.add_score(5)
         # 合計を計算
         @game.calc_score
         # 期待する合計　※()内はボーナス点
-        # 10 + 5 + (5) + 4 + (4) + 10 = 38
-        expect(@game.total_score).to eq 38
+        # 10 + 5 + (5) + 4 + (4) + 10 + 4 + 5= 47
+        expect(@game.total_score).to eq 47
       end
     end
   end
